@@ -4,20 +4,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t rjustin861/fibo-client-test -f ./client/Dockerfile.dev ./client
+  - docker build -t rjustin/fibo-client-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true rjustin861/fibo-client-test npm run test -- --coverage
+  - docker run -e CI=true rjustin/fibo-client-test npm run test -- --coverage
 
 after_success:
-  - docker build -t rjustin861/fibo-client ./client
-  - docker build -t rjustin861/fibo-nginx ./nginx
-  - docker build -t rjustin861/fibo-server ./server
-  - docker build -t rjustin861/fibo-worker ./worker
+  - docker build -t rjustin/fibo-client ./client
+  - docker build -t rjustin/fibo-nginx ./nginx
+  - docker build -t rjustin/fibo-server ./server
+  - docker build -t rjustin/fibo-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin registry-1.docker.io
   # Take those images and push them to docker hub
-  - docker push rjustin861/fibo-client
-  - docker push rjustin861/fibo-nginx
-  - docker push rjustin861/fibo-server
-  - docker push rjustin861/fibo-worker
+  - docker push rjustin/fibo-client
+  - docker push rjustin/fibo-nginx
+  - docker push rjustin/fibo-server
+  - docker push rjustin/fibo-worker
